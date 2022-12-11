@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active : local  
+  jmx:
+    default-domain: api
+
+  application:
+    name: webapp.Lt220629Application
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    view-names:
+      - thymeleafView/*
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp  
+  servlet:
+    encoding:
+      charset: UTF-8
+server:
+  port: 80      
+      
+      

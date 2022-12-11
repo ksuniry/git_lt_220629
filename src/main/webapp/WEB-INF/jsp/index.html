@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<section layout:fragment="f-content" id="f-content">
+
+		<div>
+			<input type="number"  style="width:50px;" min=1 max=3000 pattern="\d*" placeholder="회차" disabled>	
+	 		<input type="number"  style="width:50px;" min=1 max=45 pattern="\d*" placeholder="1번">
+	 		<input type="number"  style="width:50px;" min=1 max=45 pattern="\d*" placeholder="2번">
+			<input type="number"  style="width:50px;" min=1 max=45 pattern="\d*" placeholder="3번">
+			<input type="number"  style="width:50px;" min=1 max=45 pattern="\d*" placeholder="4번">
+			<input type="number"  style="width:50px;" min=1 max=45 pattern="\d*" placeholder="5번">
+			<input type="number"  style="width:50px;" min=1 max=45 pattern="\d*" placeholder="6번">
+			<input type="number"  style="width:80px;" min=1 max=45 pattern="\d*" placeholder="보너스">
+			<button onclick="">저장</button>
+		</div>
+</section>		
+
+<th:block layout:fragment="f-script">
+<script src="/js/thymeleaf/index.js"></script>
+</th:block>
+ 

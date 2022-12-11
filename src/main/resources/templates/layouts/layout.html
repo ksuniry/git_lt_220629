@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script scr="/js/jquery-1.9.1.min.js"></script>      
+    <script scr="/js/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script scr="/js/cmm/common.js"></script>
+    <script src="/js/cmm/pageReadyInit.js"></script>
+    <script src="/js/cmm/comUtil.js"></script>
+    <script>
+    
+    	function gfn_Transaction( inputParam ) {
+			
+			var callback = inputParam.callback;
+			var url = inputParam.url;
+			var async = inputParam.async == null || typeof inputParam.async == "undefined" ? true : inputParam.async ;
+			
+			$.ajax({
+				  url		: url
+				, type		: "POST"
+				, jsonp		: false 
+				, data		: JSON.stringify(inputParam.data)
+				, dataType	: "json"
+				, contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+				, async		: async
+				,beforeSend: function (xhr) {
+					//$('#loadingTxt').html(ComUtil.null(inputParam.loadingTxt, '잠시만 기다려주세요'));
+					//$('#divProgressPop').show();
+					//gfn_log("sendData ---------------------------------");
+					//gfn_log(inputParam.data);
+		            xhr.setRequestHeader("Content-type","application/json");
+		        }
+				, success	: function(result, textStatus, data) {
+					
+					result.sendData = inputParam.data;
+					//gfn_log("result ---------------------------------");
+					//gfn_log(result);
+					console.log(data);
+					callback(inputParam.sid, result, textStatus);
+					
+				}
+				, error		: function(xhr, errorName, error) {
+					//debugger;
+					//gfn_endTran(inputParam);
+					try{
+						
+					}
+					catch(e) {
+						
+					}
+				}
+			});
+		}
+    </script>
+    
+</head>
+
+<header th:replace="fragments/header :: headerFragment"></header>
+
+<div layout:fragment="content"></div>
+
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+
+<script layout:fragment="f-script"></script>
+
+</html>

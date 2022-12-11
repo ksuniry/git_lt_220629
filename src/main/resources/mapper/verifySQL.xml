@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mvc.dao.VerifyDao">
+
+	<select id="selectVerifyList"  resultType ="map"  parameterType="map" >
+		SELECT 	* 
+		FROM 	TBL_FML 
+		WHERE	CHECK_CHAPTER <![CDATA[ < ]]> #{max_chapter}
+		AND 	STATE = 'ing'
+	</select>
+	
+</mapper> 

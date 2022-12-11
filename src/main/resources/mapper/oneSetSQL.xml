@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mvc.dao.OneSetDao">
+
+	<insert id="insertTblFullList"  parameterType="java.util.List" >
+		INSERT INTO TBL_FULL_LIST VALUES 
+		<foreach collection="list" item="item" separator=",">
+			(#{item.idx},#{item.num1},#{item.num2},#{item.num3},#{item.num4},#{item.num5},#{item.num6},#{item.all_str})
+		</foreach>
+	</insert>
+	
+	<insert id="insertTblFullPoint"  parameterType="java.util.List" >
+		INSERT INTO TBL_FULL_POINT VALUES 
+		<foreach collection="list" item="item" separator=",">
+			(#{item.idx},0)
+		</foreach>
+	</insert>
+	
+</mapper> 

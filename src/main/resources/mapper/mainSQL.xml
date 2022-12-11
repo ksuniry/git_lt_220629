@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mvc.dao.MainDao">
+	
+	
+	<select id="selAllWinList" resultType="java.util.Map">
+			SELECT	*
+			FROM	TBL_WIN_NUM
+			ORDER BY CHAPTER
+	</select>
+	<select id="selMaxChapter" resultType="Integer">
+			SELECT	MAX(CHAPTER) AS max_chapter
+			FROM	TBL_WIN_NUM
+	</select>
+	<select id="selectSetSat" resultType="java.util.Map">
+			SELECT  CASE WHEN (this_saturday - ins_saturday) = 0 THEN this_saturday
+					ELSE  ins_saturday
+					END  AS ins_saturday
+					, max_chapter
+					,CASE WHEN ins_saturday <![CDATA[<]]> CURRENT_DATE THEN 'Y'
+					ELSE  'N'
+					END  AS update_yn
+			FROM 	(
+			SELECT 	DATE_TRUNC('WEEK', CURRENT_DATE)::DATE + 6 -1 AS this_saturday
+				   				, DATE_TRUNC('WEEK',to_date(max(dt),'YYYY-MM-DD')+2)::DATE + 6 -1 AS ins_saturday
+				   				, MAX(CHAPTER) AS max_chapter
+						FROM	TBL_WIN_NUM
+			) tbl_r
+	</select>
+	<select id="selectLastInfo" resultType="java.util.Map"  parameterType="java.util.Map" >
+			SELECT  *
+			FROM 	TBL_WIN_NUM
+			WHERE	CHAPTER = #{max_chapter}
+	</select>
+	<select id="selWinInfo" resultType="java.util.Map"  parameterType="Integer" >
+			SELECT  *
+			FROM 	TBL_WIN_NUM
+			WHERE	CHAPTER = #{chapter}
+	</select>
+	<insert id="insWiN"  parameterType="java.util.Map" >
+		INSERT INTO TBL_WIN_NUM VALUES (#{chapter},#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{bonus},#{dt})
+	</insert>
+	
+	
+	<select id="selMaxOrderChapter" resultType="Integer">
+			SELECT	MAX(CHAPTER) AS max_chapter
+			FROM	TBL_ORDER_WIN_NUM
+	</select>
+	<select id="selectOrderSetSat" resultType="java.util.Map">
+			SELECT  CASE WHEN (this_saturday - ins_saturday) = 0 THEN this_saturday
+					ELSE  ins_saturday
+					END  AS ins_saturday
+					, max_chapter
+			FROM 	(
+			SELECT 	DATE_TRUNC('WEEK', CURRENT_DATE)::DATE + 6 -1 AS this_saturday
+				   				, DATE_TRUNC('WEEK',to_date(max(dt),'YYYY-MM-DD')+2)::DATE + 6 -1 AS ins_saturday
+				   				, MAX(CHAPTER) AS max_chapter
+						FROM	TBL_ORDER_WIN_NUM
+			) tbl_r
+	</select>
+	<select id="selectOrderLastInfo" resultType="java.util.Map"  parameterType="java.util.Map" >
+			SELECT  *
+			FROM 	TBL_ORDER_WIN_NUM
+			WHERE	CHAPTER = #{max_chapter}
+	</select>
+	<select id="selOrderWinInfo" resultType="java.util.Map"  parameterType="Integer" >
+			SELECT  *
+			FROM 	TBL_ORDER_WIN_NUM
+			WHERE	CHAPTER = #{chapter}
+	</select>
+	<insert id="insOrderWiN"  parameterType="java.util.Map" >
+		INSERT INTO TBL_ORDER_WIN_NUM VALUES (#{chapter},#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{bonus},#{dt})
+	</insert>
+	
+</mapper> 

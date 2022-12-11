@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mvc.dao.FmlDao">
+	
+	<select id="selFmlInfoList" resultType="java.util.Map" parameterType="java.util.Map" >
+			SELECT	*
+			FROM 	${fml_tbl}
+			WHERE  	CHAPTER >= #{check_chapter}
+			ORDER BY CHAPTER
+	</select>
+	
+	<select id="selNewFml" resultType="java.util.Map" parameterType="java.util.Map" >
+			SELECT 	* 
+			FROM 	TBL_FML 
+			WHERE 	FML_CD 	= #{fml_cd}
+	</select>
+	
+	<insert id="insNewFml" parameterType="java.util.Map" >
+			INSERT INTO TBL_FML (
+									FML_CD
+									, FML_GROUP
+									, FML_JUDG
+									, FML_TBL
+									, CHECK_CHAPTER
+									, STATE
+									, RANG_CNT
+									, INC_CNT
+									, USE_YN
+									, ERR_LAST_CHAPTER
+									, AGV
+									, POINT
+								) 
+						VALUES	(
+									#{fml_cd}
+									, #{fml_group}
+									, #{fml_judg}
+									, #{fml_tbl}
+									, 0
+									, 'ing'
+									, #{rang_cnt}
+									, #{inc_cnt}
+									, 'Y'
+									, 0
+									, 0
+									, 100
+								)	
+	</insert>
+	
+	<update  id="udpFmlErrLastChapter" parameterType="java.util.Map" >
+			UPDATE  TBL_FML SET ERR_LAST_CHAPTER = #{err_last_chapter}
+			WHERE 	FML_CD = #{fml_cd}
+	</update>
+	
+	
+</mapper> 

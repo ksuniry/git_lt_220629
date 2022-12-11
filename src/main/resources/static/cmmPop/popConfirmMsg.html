@@ -1,0 +1,47 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script>
+    var base = $('#confirm_page').parents('.modal_popup');
+
+    $('button', base).on('click', function() {
+        // 창 닫을때 부모창으로 값 넘기기
+       	var resultParam = {};
+       	resultParam.result = $(this).val();
+
+        $.modal.getCurrent().close(resultParam);
+    });
+</script>
+
+
+    <div class="modal_wrap" id="confirm_page">
+        <div class="dim"></div>
+        <div class="modal"> <!-- modal = 일반 / modal+fail = 실패 / modal+complete = 성공 -->
+            <p class="modal_txt" id="alertMsg">
+                <span><!-- 등록하시겠습니까? --></span>
+            </p>
+            <div class="modal_btn half">
+                <!-- modal 즉 일반일 때, 취소/확인 또는 확인버튼 가능 -->
+                <!-- 실패 또는 성공일 때, 닫기버튼 가능 / modal_03 04 참조 -->
+                <button id="btnNo" class="cancel" value="N"><span id="btnNoTitle">취소</span></button>
+                <button id="btnOk" class="ok" value="Y"><span id="btnOkTitle">확인</span></button>
+            </div>
+        </div>
+    </div>
+
+
+<!-- 
+<div id="confirm_page">
+    <style>
+        #confirm_page p {
+            width: auto;
+        }
+    </style>
+
+	<p id="alertTitle"></p>
+    <p id="alertMsg"></p>
+
+    <div class="text-center">
+        <button id="btnOk" type="button" class="btn btn-danger btn-lg" value="Y">Yes</button>
+        <button id="btnNo" type="button" class="btn btn-danger btn-lg" value="N">No</button>
+    </div>
+
+</div> -->

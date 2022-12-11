@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mvc.dao.BagicMakeDao">
+	
+	<select id="selStair6MaxChapter" resultType="Integer">
+			SELECT	MAX(CHAPTER) AS max_chapter
+			FROM	TBL_WIN_STAIR6
+	</select>
+	<select id="selStair6Info" resultType="java.util.Map"  parameterType="Integer" > 
+			SELECT	*
+			FROM	TBL_WIN_STAIR6
+			WHERE	CHAPTER = #{chapter}
+	</select>
+	<insert id="insertStair6"   parameterType="java.util.Map" > 
+			INSERT INTO	TBL_WIN_STAIR6
+			VALUES	(#{chapter},#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{num7},#{num8},#{num9},#{num10},#{num11},#{num12},#{num13},#{num14},#{num15},#{num16},#{num17},#{num18},#{num19},#{num20},#{num21},#{num22},
+					#{num23},#{num24},#{num25},#{num26},#{num27},#{num28},#{num29},#{num30},#{num31},#{num32},#{num33},#{num34},#{num35},#{num36},#{num37},#{num38},#{num39},#{num40},#{num41},#{num42},#{num43},#{num44},#{num45})
+	</insert>
+	
+	<select id="selStair7MaxChapter" resultType="Integer">
+			SELECT	MAX(CHAPTER) AS max_chapter
+			FROM	TBL_WIN_STAIR7
+	</select>
+	<select id="selStair7Info" resultType="java.util.Map"  parameterType="Integer" > 
+			SELECT	*
+			FROM	TBL_WIN_STAIR7
+			WHERE	CHAPTER = #{chapter}
+	</select>
+	<insert id="insertStair7"   parameterType="java.util.Map" > 
+			INSERT INTO	TBL_WIN_STAIR7
+			VALUES	(#{chapter},#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{num7},#{num8},#{num9},#{num10},#{num11},#{num12},#{num13},#{num14},#{num15},#{num16},#{num17},#{num18},#{num19},#{num20},#{num21},#{num22},
+					#{num23},#{num24},#{num25},#{num26},#{num27},#{num28},#{num29},#{num30},#{num31},#{num32},#{num33},#{num34},#{num35},#{num36},#{num37},#{num38},#{num39},#{num40},#{num41},#{num42},#{num43},#{num44},#{num45})
+	</insert>
+	
+	<select id="selOrderStair6MaxChapter" resultType="Integer">
+			SELECT	MAX(CHAPTER) AS max_chapter
+			FROM	TBL_ORDER_WIN_STAIR6
+	</select>
+	<select id="selOrderStair6Info" resultType="java.util.Map" parameterType="Integer">
+			SELECT	*
+			FROM	TBL_ORDER_WIN_STAIR6
+			WHERE	CHAPTER = #{chapter}
+	</select>
+	<insert id="insertOrderStair6"   parameterType="java.util.Map" > 
+			INSERT INTO	TBL_ORDER_WIN_STAIR6
+			VALUES	(#{chapter},#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{num7},#{num8},#{num9},#{num10},#{num11},#{num12},#{num13},#{num14},#{num15},#{num16},#{num17},#{num18},#{num19},#{num20},#{num21},#{num22},
+					#{num23},#{num24},#{num25},#{num26},#{num27},#{num28},#{num29},#{num30},#{num31},#{num32},#{num33},#{num34},#{num35},#{num36},#{num37},#{num38},#{num39},#{num40},#{num41},#{num42},#{num43},#{num44},#{num45})
+	</insert>
+	
+	<select id="selOrderStair7MaxChapter" resultType="Integer">
+			SELECT	MAX(CHAPTER) AS max_chapter
+			FROM	TBL_ORDER_WIN_STAIR7
+	</select>
+	<select id="selOrderStair7Info" resultType="java.util.Map" parameterType="Integer">
+			SELECT	*
+			FROM	TBL_ORDER_WIN_STAIR7
+			WHERE	CHAPTER = #{chapter}
+	</select>
+	<insert id="insertOrderStair7"   parameterType="java.util.Map" > 
+			INSERT INTO	TBL_ORDER_WIN_STAIR7
+			VALUES	(#{chapter},#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{num7},#{num8},#{num9},#{num10},#{num11},#{num12},#{num13},#{num14},#{num15},#{num16},#{num17},#{num18},#{num19},#{num20},#{num21},#{num22},
+					#{num23},#{num24},#{num25},#{num26},#{num27},#{num28},#{num29},#{num30},#{num31},#{num32},#{num33},#{num34},#{num35},#{num36},#{num37},#{num38},#{num39},#{num40},#{num41},#{num42},#{num43},#{num44},#{num45})
+	</insert>
+	
+	<!-- vr1_tbl_stair -->
+	
+	<select id="selVr1StairByBagicIdxList" resultType="java.util.Map" parameterType="Integer">
+			SELECT	vrstair_cd , bagic_source , bagic_idx, max(chapter) max_chapter
+			FROM	TBL_VR1_STAIR
+			WHERE 	bagic_idx = #{bagic_idx}
+			GROUP  	BY vrstair_cd , bagic_tbl ,bagic_idx
+			ORDER BY vrstair_cd desc
+	</select>
+	
+	<insert id="insVr1Stair" parameterType="java.util.Map">
+			INSERT INTO	TBL_VR1_STAIR
+			VALUES	(#{vrstair_cd},#{bagic_source},#{bagic_idx},#{chapter},#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{num7},#{num8},#{num9},#{num10},#{num11},#{num12},#{num13},#{num14},#{num15},#{num16},#{num17},#{num18},#{num19},#{num20},#{num21},#{num22},
+					#{num23},#{num24},#{num25},#{num26},#{num27},#{num28},#{num29},#{num30},#{num31},#{num32},#{num33},#{num34},#{num35},#{num36},#{num37},#{num38},#{num39},#{num40},#{num41},#{num42},#{num43},#{num44},#{num45})
+	</insert>
+	
+	<delete id="delVr1Stair">
+			DELETE	FROM	TBL_VR1_STAIR
+	</delete>
+	
+	<select id="selVr1StairOfBagicTbl" resultType="java.util.Map" parameterType="java.util.Map">
+			SELECT	*
+			FROM	${bagic_source}
+			WHERE 	chapter = #{chapter}
+	</select>
+	
+	<select id="selVr1StairOfVrstairCdByBagicIdx" resultType="java.util.Map" parameterType="Integer">
+			SELECT	VRSTAIR_CD 
+			FROM	TBL_VR1_STAIR 
+			WHERE 	BAGIC_IDX = #{bagic_idx}  
+			GROUP BY VRSTAIR_CD 
+			ORDER BY VRSTAIR_CD DESC
+	</select>
+	<!--  vr2_tbl_stair -->
+	<select id="selVr2StairMaxChapter" resultType="java.util.Map" parameterType="String">
+			SELECT	MAX(CHAPTER) 
+			FROM	TBL_VR2_STAIR 
+			WHERE	VRSTAIR_CD = #{vr1stair_cd}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+</mapper> 

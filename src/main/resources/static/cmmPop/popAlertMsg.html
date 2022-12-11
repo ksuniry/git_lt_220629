@@ -1,0 +1,23 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script>
+    var base = $('#pop_alert_page').parents('.modal_popup');
+
+    $('#close_btn', base).on('click', function() {
+        // 창 닫을때 부모창으로 값 넘기기
+        $.modal.getCurrent().close({ x: '333333' });
+    });
+</script>
+
+
+    <div class="modal_wrap" id="pop_alert_page">
+        <div class="dim"></div>
+        <div class="modal">
+            <p class="modal_txt" id="alertMsg">
+                <span><!-- 존재하지 않는 아이디입니다. --></span>
+            </p>
+            <div class="modal_btn" id="close_btn">
+                <button class="ok"><span>확인</span></button>
+            </div>
+        </div>
+    </div>
+    
