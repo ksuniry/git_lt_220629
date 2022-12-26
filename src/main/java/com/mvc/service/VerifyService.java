@@ -46,7 +46,7 @@ public class VerifyService {
 		
 		try{ //no -> not over 넘지 않는다..
 			
-			if("no".equals(fml_judg) ) {
+			if("notOver".equals(fml_judg) ) {
 				fmlNotOver.notOver(fmlInfoMap, selAllWinList);
 			}
 			

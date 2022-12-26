@@ -45,13 +45,14 @@ public class VerifyController extends Thread{
 				
 				VerifyCont.VERIFY_ACTIVE = true;
 				
+				//max chapter 구하기
 		        Map<String,Object> paramMap =  mainService.selectSetSat();
-		        
+		        //모든 번호 
 		        List<Map<String,Object>> selAllWinList= mainService.selAllWinList();
-		        
+		        //fmt 검증식 전체
 		        List<Map<String,Object>> verifyList =  verifyService.selectVerifyList(paramMap);
 		        
-		       VerifyCont.VERIFY_CHECK_LIST = verifyList;
+		        VerifyCont.VERIFY_CHECK_LIST = verifyList;
 		        
 		        Map<String,Object> fmlInfoMap = null;
 		        
@@ -71,6 +72,8 @@ public class VerifyController extends Thread{
 		        		
 		        		if(!"com".equals(state) && !"err".equals(state) && "Y".equals(use_yn)){
 		        		
+		        		//VERIFY_ACTIVE_THREAD_MAP 에 넣은거 보다
+		        		//CmmCont.VERIFY_THREAD_TOTAL_COUNT 설정이 낮아야함
 		        		if(VerifyCont.VERIFY_ACTIVE_THREAD_MAP.size() <= CmmCont.VERIFY_THREAD_TOTAL_COUNT) {
 			        		
 		        			
@@ -83,6 +86,7 @@ public class VerifyController extends Thread{
 		        		}else {
 		        			//300000 3분
 		        			Thread.sleep(300000);
+		        			//다시 돌기
 		        			i=i-1;
 		        		}
 		        	}

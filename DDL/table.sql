@@ -283,6 +283,7 @@ CREATE TABLE public.tbl_vr1_stair (
 	bagic_source varchar(30) NOT NULL,
 	bagic_idx int4 NOT NULL,
 	chapter int4 NOT NULL,
+	bagic_tbl varchar(100) NOT NULL,
 	num1 int4 NOT NULL,
 	num2 int4 NOT NULL,
 	num3 int4 NOT NULL,
@@ -328,9 +329,9 @@ CREATE TABLE public.tbl_vr1_stair (
 	num43 int4 NOT NULL,
 	num44 int4 NOT NULL,
 	num45 int4 NOT NULL,
-	CONSTRAINT p_tv1s_chapter PRIMARY KEY (vrstair_cd,bagic_source,bagic_idx,chapter)
+	CONSTRAINT p_tv1s_chapter PRIMARY KEY (vrstair_cd,bagic_source,bagic_idx,chapter,bagic_tbl)
 );
-CREATE index idx_1_tv1s on tbl_vr1_stair (vrstair_cd,bagic_source,bagic_idx,chapter);		
+CREATE index idx_1_tv1s on tbl_vr1_stair (vrstair_cd,bagic_source,bagic_idx,chapter,bagic_tbl);		
 CREATE index idx_2_tv1s on tbl_vr1_stair (vrstair_cd,bagic_source,bagic_idx);
 
 CREATE TABLE public.tbl_vr2_stair (
@@ -338,6 +339,7 @@ CREATE TABLE public.tbl_vr2_stair (
 	bagic_source varchar(30) NOT NULL,
 	bagic_idx int4 NOT NULL,
 	chapter int4 NOT NULL,
+	bagic_tbl varchar(100) NOT NULL,
 	num1 int4 NOT NULL,
 	num2 int4 NOT NULL,
 	num3 int4 NOT NULL,
@@ -383,7 +385,7 @@ CREATE TABLE public.tbl_vr2_stair (
 	num43 int4 NOT NULL,
 	num44 int4 NOT NULL,
 	num45 int4 NOT NULL,
-	CONSTRAINT p_tv2s_chapter PRIMARY KEY (vrstair_cd,bagic_source,bagic_idx,chapter)
+	CONSTRAINT p_tv2s_chapter PRIMARY KEY (vrstair_cd,bagic_source,bagic_idx,chapter,bagic_tbl)
 );
-CREATE index idx_1_tv2s on tbl_vr2_stair (vrstair_cd,bagic_source,bagic_idx,chapter);		
+CREATE index idx_1_tv2s on tbl_vr2_stair (vrstair_cd,bagic_source,bagic_idx,chapter,bagic_tbl);		
 CREATE index idx_2_tv2s on tbl_vr2_stair (vrstair_cd,bagic_source,bagic_idx);

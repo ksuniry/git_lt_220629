@@ -7,8 +7,8 @@
 	<select id="selectVerifyList"  resultType ="map"  parameterType="map" >
 		SELECT 	* 
 		FROM 	TBL_FML 
-		WHERE	CHECK_CHAPTER <![CDATA[ < ]]> #{max_chapter}
-		AND 	STATE = 'ing'
+		WHERE 	1=1	
+		AND		(CHECK_CHAPTER != #{max_chapter}  OR  STATE = 'ing')
 	</select>
 	
 </mapper> 
