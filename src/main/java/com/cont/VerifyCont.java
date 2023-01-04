@@ -31,7 +31,7 @@ import com.mvc.service.MainService;
 public class VerifyCont {
 	
 	public static Map<String,Long> VERIFY_ACTIVE_THREAD_MAP = new HashMap<String,Long>();
-	public static List<Map<String,Object>> VERIFY_CHECK_LIST = new ArrayList<Map<String,Object>>();
+	//public static List<Map<String,Object>> VERIFY_CHECK_LIST = new ArrayList<Map<String,Object>>(); //사용안함
 	public static boolean VERIFY_ACTIVE = false;
 	public static long STAIR6_START_TIME = 0;  
 	public static long STAIR7_START_TIME = 0;

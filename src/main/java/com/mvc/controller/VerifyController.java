@@ -35,70 +35,76 @@ public class VerifyController extends Thread{
 
 	@RequestMapping(value = "/verifyStart")
 	public ResponseEntity verifyStart(HttpServletRequest request) throws Exception {
-			logger.info("verifyStart");
+		logger.info("verifyStart");
 			
-			HttpHeaders header = new HttpHeaders();
-	        header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-	        Map<String,Object> rtnMap = new HashMap<String,Object>();
-	        
-			if(!VerifyCont.VERIFY_ACTIVE) {
-				
-				VerifyCont.VERIFY_ACTIVE = true;
-				
-				//max chapter 구하기
-		        Map<String,Object> paramMap =  mainService.selectSetSat();
-		        //모든 번호 
-		        List<Map<String,Object>> selAllWinList= mainService.selAllWinList();
-		        //fmt 검증식 전체
-		        List<Map<String,Object>> verifyList =  verifyService.selectVerifyList(paramMap);
-		        
-		        VerifyCont.VERIFY_CHECK_LIST = verifyList;
-		        
-		        Map<String,Object> fmlInfoMap = null;
-		        
-		        if(verifyList != null && verifyList.size() > 0) {
-
-					String fml_cd = null;
-					String state = null;
-			        String use_yn = null;
-
-		        	for(int i = 0 ; i < VerifyCont.VERIFY_CHECK_LIST.size() ; i++ ) {
-		        		
-		        		fmlInfoMap = VerifyCont.VERIFY_CHECK_LIST.get(i);
-		        		
-		        		fml_cd = String.valueOf(fmlInfoMap.get("fml_cd"));
-		        		state = String.valueOf(fmlInfoMap.get("state"));
-		        		use_yn = String.valueOf(fmlInfoMap.get("use_yn"));
-		        		
-		        		if(!"com".equals(state) && !"err".equals(state) && "Y".equals(use_yn)){
-		        		
-		        		//VERIFY_ACTIVE_THREAD_MAP 에 넣은거 보다
-		        		//CmmCont.VERIFY_THREAD_TOTAL_COUNT 설정이 낮아야함
-		        		if(VerifyCont.VERIFY_ACTIVE_THREAD_MAP.size() <= CmmCont.VERIFY_THREAD_TOTAL_COUNT) {
-			        		
-		        			
-			        		VerifyCont.VERIFY_ACTIVE_THREAD_MAP.put(fml_cd,System.currentTimeMillis());
-			        		logger.info("==============================> Thread Strart : "+fml_cd +" // params : "+fmlInfoMap.toString());
-			        		
-			        		verifyService.startVerify(fmlInfoMap, selAllWinList);
-			        		
-			        		
-		        		}else {
-		        			//300000 3분
-		        			Thread.sleep(300000);
-		        			//다시 돌기
-		        			i=i-1;
-		        		}
-		        	}
-		        }
-		        VerifyCont.VERIFY_ACTIVE = false;
-			}
+		HttpHeaders header = new HttpHeaders();
+        header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        Map<String,Object> rtnMap = new HashMap<String,Object>();
+        
+		if(!VerifyCont.VERIFY_ACTIVE) {
+			
+			VerifyCont.VERIFY_ACTIVE = true;
+			
+			//max chapter 구하기
+	        Map<String,Object> paramMap =  mainService.selectSetSat();
+	        //모든 번호 
+	        List<Map<String,Object>> selAllWinList= mainService.selAllWinList();
+	        //fmt 검증식 전체
+	        while(true) {
+	        	List<Map<String,Object>> verifyList =  verifyService.selectVerifyList(paramMap);
+	        	if(verifyList != null && verifyList.size() > 0) {
+	        		verifyLoop(selAllWinList,verifyList);
+	        	}else {
+	        		break;
+	        	}
+	        	
+	        	Thread.sleep(300000);
+	        }
+	     
 		}else {
 			rtnMap.put("msg", "검증 실행중 ");
 		}
 		return new ResponseEntity<>(rtnMap, header, HttpStatus.OK);
 	}
 	
-	
+	public void verifyLoop( List<Map<String,Object>> selAllWinList, List<Map<String,Object>> verifyList) throws Exception {
+		
+		if(verifyList != null && verifyList.size() > 0) {
+
+			String fml_cd = null;
+			String state = null;
+	        String use_yn = null;
+	        
+	        Map<String,Object> fmlInfoMap = null;
+	        
+        	for(int i = 0 ; i < verifyList.size() ; i++ ) {
+        		
+        		fmlInfoMap = verifyList.get(i);
+        		
+        		fml_cd = String.valueOf(fmlInfoMap.get("fml_cd"));
+        		state = String.valueOf(fmlInfoMap.get("state"));
+        		use_yn = String.valueOf(fmlInfoMap.get("use_yn"));
+        		
+        		if(!"com".equals(state) && !"err".equals(state) && "Y".equals(use_yn)){
+        		
+	        		//VERIFY_ACTIVE_THREAD_MAP 에 넣은거 보다
+	        		//CmmCont.VERIFY_THREAD_TOTAL_COUNT 설정이 낮아야함
+	        		if(VerifyCont.VERIFY_ACTIVE_THREAD_MAP.size() <= CmmCont.VERIFY_THREAD_TOTAL_COUNT) {
+		        		
+		        		VerifyCont.VERIFY_ACTIVE_THREAD_MAP.put(fml_cd,System.currentTimeMillis());
+		        		logger.info("==============================> Thread Strart : "+fml_cd +" // params : "+fmlInfoMap.toString());
+		        		
+		        		verifyService.startVerify(fmlInfoMap, selAllWinList);
+		        		
+	        		}else {
+	        			//300000 3분
+	        			Thread.sleep(300000);
+	        			//다시 돌기
+	        			i=i-1;
+	        		}
+        		}
+        	}   
+		}
+	}
 }
 
